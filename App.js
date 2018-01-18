@@ -4,6 +4,10 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { navigatorConfig } from './src/screens';
 import { persistor, store } from './src/redux/store';
+import Amplify from 'aws-amplify-react-native';
+import awsconfig from './src/aws-exports';
+
+Amplify.configure(awsconfig);
 
 const App = () => {
   const Navigator = StackNavigator(navigatorConfig);

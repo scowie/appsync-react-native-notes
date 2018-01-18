@@ -1,0 +1,22 @@
+{
+	"ProjectName": "appsync-react-native-notes",
+	"ProjectPath": "/Users/stephencowie/Projects/appsync-react-native-notes",
+	"SourceDir": "src",
+	"DistributionDir": "build",
+	"BuildCommand": "npm run-script build",
+	"StartCommand": "npm run-script start",
+	"InitializationTime": "2018-01-18-06-36-56",
+	"LastConfigurationTime": "2018-01-18-06-38-59",
+	"LastNPMInstallTime": "",
+	"FrontendLastBuildTime": "",
+	"LastPublishTime": "",
+	"BackendFormat": "yml",
+	"BackendLastBuildTime": "",
+	"BackendLastUpdateTime": "",
+	"BackendLastUpdateSuccessful": false,
+	"BackendProjectID": "3454dd05-72e9-4e35-9d92-422415182d6c",
+	"BackendProjectName": "AppSync-ReactNative-Notes",
+	"BackendProjectConsoleUrl": "https://console.aws.amazon.com/mobilehub/home#/3454dd05-72e9-4e35-9d92-422415182d6c/build",
+	"BackendProjectCreationTime": "2018-01-18T11:32:18.542Z",
+	"BackendProjectLastUpdatedTime": "2018-01-18T11:33:01.760Z"
+}

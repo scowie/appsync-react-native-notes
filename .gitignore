@@ -8,3 +8,7 @@ android/.gradle/
 android/app/build/
 AppSync.js
 aws-exports.js
+
+#awsmobilejs
+awsmobilejs/.awsmobile/backend-build
+awsmobilejs/\#current-backend-info
