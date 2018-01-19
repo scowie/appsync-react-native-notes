@@ -10,9 +10,14 @@ import Loading from './Loading';
 import theme from '../theme';
 
 //BEGIN-REDUX
-import { connect } from 'react-redux';
-import actions from '../redux/actions';
+//import { connect } from 'react-redux';
+//import actions from '../redux/actions';
 // END-REDUX
+
+// BEGIN APPSYNC
+import { compose } from 'react-apollo';
+import * as GraphQL from '../graphql';
+// END APPSYNC
 
 // Stylesheet for the details page
 const styles = StyleSheet.create({
@@ -164,11 +169,11 @@ class NoteDetails extends React.Component {
  *
  * @param {Object} state the redux store state
  */
-const mapStateToProps = (state, ownProps) => {
-    return {
-        note: state.notes.find(n => n.noteId === ownProps.navigation.state.params.noteId)
-    };
-};
+// const mapStateToProps = (state, ownProps) => {
+//     return {
+//         note: state.notes.find(n => n.noteId === ownProps.navigation.state.params.noteId)
+//     };
+// };
 
 /**
  * Maps the dispatch method to dispatch the appropriate actions based
@@ -176,12 +181,17 @@ const mapStateToProps = (state, ownProps) => {
  *
  * @param {Function} dispatch the dispatcher from redux
  */
-const mapDispatchToProps = (dispatch) => {
-    return {
-        saveNote: (note) => dispatch(actions.notes.saveNote(note))
-    };
-};
-const NoteDetailsScreen = connect(mapStateToProps, mapDispatchToProps)(NoteDetails);
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         saveNote: (note) => dispatch(actions.notes.saveNote(note))
+//     };
+// };
+// const NoteDetailsScreen = connect(mapStateToProps, mapDispatchToProps)(NoteDetails);
 // END-REDUX
+
+const NoteDetailsScreen = compose(
+    GraphQL.operations.GetNote,
+    GraphQL.operations.SaveNote
+  )(NoteDetails);
 
 export default NoteDetailsScreen;
