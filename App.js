@@ -1,6 +1,6 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
-import { navigatorConfig } from './src/screens';
+import { routesConfig } from './src/screens';
 import Amplify, { withAuthenticator } from 'aws-amplify-react-native';
 import awsconfig from './src/aws-exports';
 import AWSAppSyncClient from 'aws-appsync';
@@ -17,7 +17,12 @@ const appsyncClient = new AWSAppSyncClient({
 Amplify.configure(awsconfig);
 
 const App = () => {
-  const Navigator = StackNavigator(navigatorConfig);
+  const Navigator = StackNavigator(routesConfig, {
+    initialRouteName: 'list',
+    initialRouteParams: {
+      username: ""
+    }
+  });
 
   return (
     <ApolloProvider client={appsyncClient}>

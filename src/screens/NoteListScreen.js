@@ -115,13 +115,19 @@ class NoteList extends React.Component {
         activeRow: null
     };
 
+    componentDidMount() {
+        Auth.currentUserInfo().then(resp => this.props.navigation.setParams({username: resp.username}))
+    };
+
     static navigationOptions = ({ navigation }) => {
+        console.log('navigation', navigation)
         return {
             title: 'Notes',
             headerStyle: {
                 backgroundColor: theme.headerBackgroundColor
             },
             headerTintColor: theme.headerForegroundColor,
+            headerLeft: <Text>{navigation.state.params.username}</Text>,
             headerRight: (Platform.OS === 'ios')
                 ? <HeaderButton style={styles.iosAddItemIcon} onPress={() => NoteListScreen.onAddNote(navigation.navigate)}>+</HeaderButton>
                 : false

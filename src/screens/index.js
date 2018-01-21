@@ -1,9 +1,9 @@
 import NoteListScreen from './NoteListScreen';
 import NoteDetailsScreen from './NoteDetailsScreen';
 
-export const navigatorConfig = {
+export const routesConfig = {
     'list': {
-        screen: NoteListScreen
+        screen: NoteListScreen,
     },
     'details': {
         screen: NoteDetailsScreen
