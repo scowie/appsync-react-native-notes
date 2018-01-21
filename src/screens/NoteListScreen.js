@@ -15,11 +15,7 @@ import Swipeout from 'react-native-swipeout';
 import Loading from './Loading';
 import theme from '../theme';
 import uuid from 'uuid';
-
-// BEGIN-REDUX
-//import { connect } from 'react-redux';
-//import actions from '../redux/actions';
-// END-REDUX
+import { Auth } from 'aws-amplify-react-native';
 
 // BEGIN APPSYNC
 import { compose } from 'react-apollo';
@@ -79,11 +75,6 @@ const noteItemStyles = StyleSheet.create({
     }
 });
 
-/**
- * Component for displaying a textual icon that is touchable in the top header bar
- *
- * @param {Props} props properties for this component
- */
 const HeaderButton = (props) => {
     return (
         <TouchableOpacity onPress={(event) => props.onPress(event)}>
@@ -92,14 +83,9 @@ const HeaderButton = (props) => {
     );
 };
 
-/**
- * Component for displaying an individual row of the NoteList
- *
- * @param {Props} props properties for this component
- */
 const NoteListItem = (props) => {
     const onPress = props.onPress ? props.onPress : () => { /* Do Nothing */ };
-
+    
     return (
         <Touchable onPress={onPress}>
             <View style={noteItemStyles.container}>
@@ -118,9 +104,6 @@ const NoteListItem = (props) => {
  * The Home Screen - this is a container component built on top of
  * the React Navigation system that is fed the list of notes to be
  * displayed
- *
- * @class NoteList
- * @extends {React.Component}
  */
 class NoteList extends React.Component {
     /**
@@ -132,12 +115,6 @@ class NoteList extends React.Component {
         activeRow: null
     };
 
-    /**
-     * Options for react-navigation
-     *
-     * @static
-     * @memberof NoteList
-     */
     static navigationOptions = ({ navigation }) => {
         return {
             title: 'Notes',
@@ -154,8 +131,6 @@ class NoteList extends React.Component {
     /**
      * This has to be a static method because it is called in two places - by the floating
      * action button on Android and by the navigation options on iOS.
-     * @param {Function} navigate method to call to navigate to a new screen
-     * @memberof NoteList
      */
     static onAddNote(navigate) {
         navigate('details', { noteId: uuid.v4() });
@@ -163,11 +138,6 @@ class NoteList extends React.Component {
 
     /**
      * Event handler called when the user swipes-left.
-     *
-     * @param {any} item the item that was swiped
-     * @param {any} rowId the rowId of the item that was swiped
-     * @param {any} dir the direction that was swiped
-     * @memberof NoteList
      */
     onSwipeOpen(item, rowId, dir) {
         this.setState({ activeRow: item.noteId });
@@ -176,11 +146,6 @@ class NoteList extends React.Component {
     /**
      * Event handler called when the system closes the swipe-drawer (either
      * because the user clicked elsewhere or the item was deleted)
-     *
-     * @param {any} item the item that was swiped
-     * @param {any} rowId the rowId of the item that was swiped
-     * @param {any} dir the direction that was swiped
-     * @memberof NoteList
      */
     onSwipeClose(item, rowId, dir) {
         if (item.noteId === this.state.activeRow && typeof dir !== 'undefined') {
@@ -190,9 +155,6 @@ class NoteList extends React.Component {
 
     /**
      * Event handler called when a user tries to press a note.
-     *
-     * @param {String} noteId the id of the note to be selected
-     * @memberof NoteList
      */
     onViewNote(item) {
         const { navigate } = this.props.navigation;
@@ -201,9 +163,6 @@ class NoteList extends React.Component {
 
     /**
      * Event handler called when a user tries to delete a note.
-     *
-     * @param {String} noteId the id of the note to be deleted
-     * @memberof NoteList
      */
     onDeleteNote(item) {
         this.props.deleteNote(item.noteId);
@@ -211,10 +170,6 @@ class NoteList extends React.Component {
 
     /**
      * Renders a single element in the list
-     * @param {Object} item the item to be rendered
-     * @param {number} index the rowId of the item to be rendered
-     * @returns {JSX.Element} the rendered list element
-     * @memberof NoteList
      */
     renderItem(item, index) {
         const swipeSettings = {
@@ -239,9 +194,6 @@ class NoteList extends React.Component {
 
     /**
      * Part of the React lifecycle that actually renders the component.
-     *
-     * @returns {JSX.Element} a component tree rendered in JSX
-     * @memberof NoteList
      */
     render() {
         const params = {
@@ -269,35 +221,6 @@ class NoteList extends React.Component {
         );
     }
 }
-
-// BEGIN-REDUX
-/**
- * Maps the redux store state to properties required by this container
- * component.  In this case, we only want to see the records that are
- * not deleted.
- *
- * @param {Object} state the redux store state
- */
-// const mapStateToProps = (state) => {
-//     return {
-//         notes: state.notes
-//     };
-// };
-
-/**
- * Maps the dispatch method to dispatch the appropriate actions based
- * on the events that will be generated by this container component.
- *
- * @param {Function} dispatch the dispatcher from redux
- */
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         deleteNote: (noteId) => dispatch(actions.notes.deleteNote({ noteId }))
-//     };
-// };
-// const NoteListScreen = connect(mapStateToProps, mapDispatchToProps)(NoteList);
-
-// END-REDUX
 
 const NoteListScreen = compose(
     GraphQL.operations.ListAllNotes,
