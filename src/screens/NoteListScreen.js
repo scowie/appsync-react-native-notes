@@ -92,6 +92,9 @@ const NoteListItem = (props) => {
                 <View style={noteItemStyles.titleContainer}>
                     <Text style={noteItemStyles.title}>{props.item.title}</Text>
                 </View>
+                <View>
+                    <Text>{props.item.owner}</Text>
+                </View>
                 <View style={noteItemStyles.infoContainer}>
                     <Text style={noteItemStyles.info}>{props.item.noteId}</Text>
                 </View>

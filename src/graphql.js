@@ -3,19 +3,19 @@ import { graphql } from 'react-apollo';
 
 export const ListAllNotes = gql`query ListAllNotes {
     allNote {
-        noteId, title
+        noteId, title, owner
     }
 }`;
 
 export const GetNote = gql`query GetNote($noteId:ID!) {
     getNote(noteId:$noteId) {
-        noteId, title, content
+        noteId, title, content, owner
     }
 }`;
 
-export const SaveNote = gql`mutation SaveNote($noteId:ID!,$title:String!,$content:String!) {
-    putNote(noteId:$noteId, title:$title, content:$content) {
-        noteId, title, content
+export const SaveNote = gql`mutation SaveNote($noteId:ID!,$title:String!,$content:String!,$owner:String) {
+    putNote(noteId:$noteId, title:$title, content:$content, owner:$owner) {
+        noteId, title, content, owner
     }
 }`;
 
