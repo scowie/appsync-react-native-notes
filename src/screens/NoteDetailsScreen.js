@@ -69,18 +69,19 @@ class NoteDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            note: props.note || this.blankNote(props.navigation.state.params.noteId)
+            note: props.note || this.blankNote(props.navigation.state.params.noteId, props.navigation.state.params.owner)
         }
     }
 
     /**
      * Creates a blank note
      */
-    blankNote(id) {
+    blankNote(id, owner) {
         return {
             noteId: id,
             title: '',
-            content: ''
+            content: '',
+            owner: owner
         };
     }
 

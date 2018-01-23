@@ -142,7 +142,7 @@ class NoteList extends React.Component {
      * action button on Android and by the navigation options on iOS.
      */
     static onAddNote(navigate) {
-        navigate('details', { noteId: uuid.v4() });
+        navigate('details', { noteId: uuid.v4(), owner: this.props.navigation.state.params.username });
     }
 
     /**
